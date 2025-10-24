@@ -17,12 +17,14 @@
       color: white;
       text-align: center;
       flex-direction: column;
+      transition: background 1s ease;
     }
 
     h1, h2, h3, h4, h5 {
       margin: 10px;
       max-width: 800px;
       line-height: 1.5;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff6ec7, 0 0 30px #ff1493;
     }
 
     /* ===== Envelope ===== */
@@ -130,6 +132,7 @@
       background-color: hsl(var(--hue), 100%, 60%);
       top: -10px;
       animation: fall 3s linear forwards;
+      pointer-events: none;
     }
 
     @keyframes fall {
@@ -141,7 +144,6 @@
     .tela-carta {
       opacity: 0;
       transition: opacity 1s ease;
-      text-shadow: 0 0 10px #fff, 0 0 20px #ff6ec7, 0 0 30px #ff1493;
       max-width: 800px;
       line-height: 1.7;
       display: none;
@@ -180,6 +182,7 @@
         Desejo que a vida te surpreenda com amor, paz, saúde e muitas conquistas.</h3>
     <h4>Nunca esqueça: você é uma pessoa incrível e o mundo é muito mais bonito com você nele! ✨💫</h4>
     <h5>Com carinho,<br>💌 [Paulinho] 💕</h5>
+    <button class="btn" id="fechar">Fechar cartinha 💌</button>
   </div>
 
   <script>
@@ -187,17 +190,18 @@
     const telaEnvelope = document.getElementById("tela-envelope");
     const telaCarta = document.getElementById("tela-carta");
     const abrir = document.getElementById("abrir");
+    const fechar = document.getElementById("fechar");
 
     abrir.addEventListener("click", () => {
       // abre o envelope
       envelope.classList.add("open");
 
-      // explosão de confete
+      // explosão inicial de confete
       for (let i = 0; i < 100; i++) {
         createConfetti();
       }
 
-      // mostra a carta após a animação
+      // transição para a carta
       setTimeout(() => {
         telaEnvelope.style.opacity = 0;
       }, 2000);
@@ -205,7 +209,23 @@
       setTimeout(() => {
         telaEnvelope.style.display = "none";
         telaCarta.classList.add("show");
+        document.body.style.background = "radial-gradient(circle at center, #ffb6c1, #ff69b4, #ff1493)";
+        // confete contínuo na tela da carta
+        confettiInterval = setInterval(createConfetti, 300);
       }, 2500);
+    });
+
+    let confettiInterval;
+
+    fechar.addEventListener("click", () => {
+      // parar os confetes
+      clearInterval(confettiInterval);
+      telaCarta.classList.remove("show");
+      telaCarta.style.display = "none";
+      telaEnvelope.style.display = "flex";
+      setTimeout(() => telaEnvelope.style.opacity = 1, 10);
+      envelope.classList.remove("open");
+      document.body.style.background = "linear-gradient(135deg, #ffb6c1, #ff69b4, #ff1493)";
     });
 
     // Função para criar confete colorido
