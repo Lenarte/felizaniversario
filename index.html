@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Aniversário! 💖</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #ffb6c1, #ff69b4, #ff1493);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Comic Sans MS', cursive;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      text-shadow: 2px 2px 10px #ff4081;
+      z-index: 2;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      color: #ffe4f1;
+      z-index: 2;
+    }
+
+    /* ❤️ Corações flutuantes */
+    .heart {
+      position: absolute;
+      color: #ff3366;
+      font-size: 20px;
+      animation: float 6s ease-in infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(0.8);
+        opacity: 0;
+      }
+    }
+
+    /* 🎉 Confetes coloridos */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: hsl(var(--hue), 100%, 60%);
+      top: -10px;
+      border-radius: 50%;
+      animation: fall 4s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>🎉 Feliz Aniversário! 🎂</h1>
+    <h2>Que seu dia seja cheio de amor, cor e alegria! 💕</h2>
+  </div>
+
+  <script>
+    // Função para criar corações aleatórios
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (20 + Math.random() * 30) + 'px';
+      heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 8000);
+    }
+
+    // Função para criar confete colorido
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.setProperty('--hue', Math.random() * 360);
+      confetti.style.animationDuration = (2 + Math.random() * 3) + 's';
+      confetti.style.width = confetti.style.height = (6 + Math.random() * 6) + 'px';
+      document.body.appendChild(confetti);
+
+      setTimeout(() => confetti.remove(), 4000);
+    }
+
+    // Intervalos para gerar os efeitos
+    setInterval(createHeart, 500);
+    setInterval(createConfetti, 200);
+  </script>
+</body>
+</html>
